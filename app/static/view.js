@@ -22,7 +22,9 @@ const labels = {READY:'通过', MISMATCH:'数值不符', PENDING:'待复核', AP
   INVALID_SAMPLE:'样本登记无效', INVALID_REGISTER:'作者登记无效', INVALID_SIMILARITY:'相似度无效',
   AUTHORITY_EXCLUSION_CONFLICT:'权威编号与禁用关系冲突', HISTORY_LIMIT:'历史窗口过长',
   DAY_OUT_OF_RANGE:'观测日超出范围', INVALID_COHORT:'入柜队列无效', PICKUP_CONFLICT:'领取记录冲突',
-  INVALID_OBSERVATION:'抽检记录无效', INVALID_SAMPLE_REGISTRY:'样本记录无效'};
+  INVALID_OBSERVATION:'抽检记录无效', INVALID_SAMPLE_REGISTRY:'样本记录无效',
+  STALE_CHECK:'读版本已变化，请重新核对', WRITE_VERSION_CONFLICT:'同表候选写版本冲突',
+  TABLE_NOT_FOUND:'表不存在', CHECK_NOT_FOUND:'核对结论不存在'};
 
 const valueLabels = {RPD:'相对偏差', ABSOLUTE:'绝对差', BOTH_ND:'双方未检出', MIXED_LOD:'一侧低于检出限',
   EQUALITY:'等值删除', POSITION:'位置删除', PRIMARY:'初次遮蔽', SECONDARY:'追加遮蔽',

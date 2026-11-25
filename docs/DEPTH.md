@@ -13,6 +13,7 @@
 | M5 运行对账 | 对照输入、采信和隔离行 | `POST /api/stages/balance` | `app/modules/reconcile.py` | `tests/test_reconcile.py` |
 | M6 批次复核 | 执行批次并签发或暂缓 | `POST /api/runs、PATCH /api/runs/<id>` | `app/review/service.py` | `tests/test_review.py` |
 | M7 证据交付 | 下载复核清单 | `GET /api/runs/<id>/evidence` | `app/evidence/render.py` | `tests/test_evidence.py` |
+| M8 表级签发 | 核对读写版本、失效重核、并发候选一胜 | `/api/tables、/api/release-batches` | `app/release/` | `tests/test_release_workbench_rules.py` |
 
 ## 输入陷阱
 
@@ -29,6 +30,8 @@
 | TRAP-16 | 引号未闭合时拒收文件 | `app/intake/reader.py` | `tests/test_intake.py::test_unclosed_quote_invalidates_source` |
 | TRAP-18 | 区分空文件、全空白和仅表头 | `app/intake/reader.py` | `tests/test_intake.py::test_empty_states_have_distinct_causes` |
 | TRAP-26 | 拒绝旧版本复核 | `app/review/store.py` | `tests/test_review.py::test_review_optimistic_lock` |
+| READ-FENCE | 核对后退役/恢复读版本使结论失效 | `app/release/board.py` | `tests/test_release_workbench_rules.py::test_retire_after_check_invalidates_original_conclusion` |
+| TABLE-RACE | 同表并发候选写仅一个生效，不阻塞其他表 | `app/release/store.py` | `tests/test_release_workbench_rules.py::test_concurrent_candidates_have_one_winner_but_other_tables_release` |
 
 ## 领域反例
 

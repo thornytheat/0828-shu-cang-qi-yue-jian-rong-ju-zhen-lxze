@@ -42,6 +42,22 @@
   </form>
 </aside>
 {% endmacro %}
+{% macro release_board() %}
+<section class="panel release-board" id="release-area" aria-labelledby="release-title">
+  <div class="panel-head">
+    <h2 id="release-title">表级独立签发</h2>
+    <div class="release-toolbar">
+      <button type="button" id="release-demo">载入版本演练</button>
+      <button type="button" class="action" id="release-concurrent">并发提交两批</button>
+      <button type="button" id="release-refresh">刷新</button>
+    </div>
+  </div>
+  <p class="release-hint">逐表核对候选写版本与每个 ACTIVE 读版本；任一在用读版本不兼容则整表不可签。核对后退役或恢复读版本，旧结论立即失效，必须重新核对。</p>
+  <p id="release-notice" role="status" aria-live="polite"></p>
+  <div class="release-grid" id="release-cards" aria-live="polite"></div>
+  <div id="release-batch-result"></div>
+</section>
+{% endmacro %}
 {% macro status() %}
 <footer class="statusbar"><span id="notice" role="status" aria-live="polite">正在读取样例</span><a href="/examples/clean">下载样例 CSV</a></footer>
 {% endmacro %}

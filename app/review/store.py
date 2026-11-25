@@ -50,3 +50,16 @@ class Store:
             if cursor.rowcount != 1:
                 raise DomainIssue('STALE_REVIEW')
         return self.load(run_id)
+
+    def __getattr__(self, name):
+        # The original run Store remains the entry point used by tests/fixtures.
+        # Expose table-release verbs when callers invoke them directly on it.
+        if name.startswith('_'):
+            raise AttributeError(name)
+        from app.release.service import ReleaseService
+
+        service = ReleaseService(self)
+        attr = getattr(service, name, None)
+        if callable(attr):
+            return attr
+        raise AttributeError(name)

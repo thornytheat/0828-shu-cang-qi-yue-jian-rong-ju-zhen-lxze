@@ -40,3 +40,22 @@ def review(store, run_id, values):
     if status == 'APPROVED' and not current['report']['balance']['releasable']:
         raise DomainIssue('UNRESOLVED_ISSUES')
     return store.revise(run_id,revision,status,note.strip(),now())
+
+
+# Table-level release capabilities live in app.release.  Re-export the common
+# verbs here so callers/tests can continue using the review service namespace.
+from app.release.service import (  # noqa: E402
+    ReleaseService as TableReleaseService,
+    check as check_table_version,
+    release_table,
+    sign as sign_table_version,
+    submit_batch as release_table_batch,
+)
+
+
+def verify_table_version(store, *args, **kwargs):
+    return check_table_version(store, *args, **kwargs)
+
+
+def release_tables(store, batch_id=None, items=None, **kwargs):
+    return release_table_batch(store, batch_id, items, **kwargs)
